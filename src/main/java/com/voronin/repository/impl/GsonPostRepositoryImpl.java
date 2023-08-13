@@ -99,35 +99,30 @@ public class GsonPostRepositoryImpl implements PostRepository {
     @Override
     public void addLabelToPost(Post post, Label label) {
         List<Post> posts = fileUtils.getFromFile();
-        Optional<Post> first = posts.stream()
+        Post first = posts.stream()
                 .filter(p -> Objects.equals(p.getId(), post.getId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий Post ID: " + post));
 
-        if (first.isPresent()) {
-            Post p = first.get();
-            if (!p.getLabels().contains(label)) {
-                p.getLabels().add(label);
-            }
-            writerRepository.updatePostInWriter(p);
+        if (!first.getLabels().contains(label)) {
+            first.getLabels().add(label);
         }
-
+        writerRepository.updatePostInWriter(first);
         fileUtils.writeToFile(posts);
     }
 
     @Override
     public void removeLabelFromPost(Post post, Label label) {
         List<Post> posts = fileUtils.getFromFile();
-        Optional<Post> first = posts.stream()
+        Post first = posts.stream()
                 .filter(p -> Objects.equals(p.getId(), post.getId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий Post ID: " + post));
 
-        if (first.isPresent()) {
-            Post p = first.get();
-            if (p.getLabels().contains(label)) {
-                p.getLabels().remove(label);
-                writerRepository.updatePostInWriter(p);
-            }
-        }
+
+        first.getLabels().remove(label);
+
+        writerRepository.updatePostInWriter(first);
         fileUtils.writeToFile(posts);
     }
 

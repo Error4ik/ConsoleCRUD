@@ -88,13 +88,14 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public void addPostToWriter(Writer writer, Post post) {
         List<Writer> writers = fileUtils.getFromFile();
-        for (Writer w : writers) {
-            if (w.getId().equals(writer.getId())) {
-                if (!w.getPosts().contains(post)) {
-                    w.getPosts().add(post);
-                }
-                break;
-            }
+        Writer first = writers.stream()
+                .filter(w -> w.getId().equals(writer.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + writer));
+
+
+        if (!first.getPosts().contains(post)) {
+            first.getPosts().add(post);
         }
         fileUtils.writeToFile(writers);
     }
@@ -102,12 +103,12 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public void removePostFromWriter(Writer writer, Post post) {
         List<Writer> writers = fileUtils.getFromFile();
-        for (Writer w : writers) {
-            if (w.getId().equals(writer.getId())) {
-                w.getPosts().remove(post);
-                break;
-            }
-        }
+        Writer first = writers.stream()
+                .filter(w -> w.getId().equals(writer.getId()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + writer));
+
+        first.getPosts().remove(post);
         fileUtils.writeToFile(writers);
     }
 
