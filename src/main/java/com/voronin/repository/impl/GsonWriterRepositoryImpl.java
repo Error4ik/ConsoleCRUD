@@ -61,36 +61,28 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public Writer update(Writer writer) {
         List<Writer> writers = fileUtils.getFromFile();
-        Optional<Writer> first = writers.stream()
+        Writer first = writers.stream()
                 .filter(w -> Objects.equals(w.getId(), writer.getId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + writer));
 
-        Writer w;
-        if (first.isPresent()) {
-            w = first.get();
-            w.setFirstname(writer.getFirstname());
-            w.setLastname(writer.getLastname());
-            fileUtils.writeToFile(writers);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID: " + writer);
-        }
-        return w;
+        first.setFirstname(writer.getFirstname());
+        first.setLastname(writer.getLastname());
+        fileUtils.writeToFile(writers);
+
+        return first;
     }
 
     @Override
     public void deleteById(Integer id) {
         List<Writer> writers = fileUtils.getFromFile();
-        Optional<Writer> first = writers.stream()
+        Writer first = writers.stream()
                 .filter(w -> Objects.equals(w.getId(), id))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + id));
 
-        if (first.isPresent()) {
-            Writer w = first.get();
-            w.setStatus(Status.DELETED);
-            fileUtils.writeToFile(writers);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID: " + id);
-        }
+        first.setStatus(Status.DELETED);
+        fileUtils.writeToFile(writers);
     }
 
     @Override

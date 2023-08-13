@@ -55,7 +55,9 @@ public class PostActions implements Actions {
                     break;
                 }
                 default: {
-                    System.out.println("---------Неверный пункт меню.---------");
+                    if (menuPostActions != 0) {
+                        System.out.println("---------Неверный пункт меню.---------");
+                    }
                 }
             }
         } while (menuPostActions != 0);

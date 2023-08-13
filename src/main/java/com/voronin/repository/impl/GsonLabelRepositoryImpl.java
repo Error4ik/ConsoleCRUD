@@ -62,37 +62,28 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     @Override
     public Label update(Label label) {
         List<Label> labels = fileUtils.getFromFile();
-        Optional<Label> first = labels.stream()
+        Label first = labels.stream()
                 .filter(l -> l.getId().equals(label.getId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID у Label: " + label));
 
-        Label l;
-        if (first.isPresent()) {
-            l = first.get();
-            l.setName(label.getName());
-            fileUtils.writeToFile(labels);
-            postRepository.updateLabelInPost(l);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID у Label: " + label);
-        }
-        return l;
+        first.setName(label.getName());
+        fileUtils.writeToFile(labels);
+        postRepository.updateLabelInPost(first);
+        return first;
     }
 
     @Override
     public void deleteById(Integer id) {
         List<Label> labels = fileUtils.getFromFile();
-        Optional<Label> first = labels.stream()
+        Label first = labels.stream()
                 .filter(l -> l.getId().equals(id))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + id));
 
-        if (first.isPresent()) {
-            Label l = first.get();
-            l.setStatus(Status.DELETED);
-            fileUtils.writeToFile(labels);
-            postRepository.updateLabelInPost(l);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID: " + id);
-        }
+        first.setStatus(Status.DELETED);
+        fileUtils.writeToFile(labels);
+        postRepository.updateLabelInPost(first);
     }
 
     private static Integer getNewId(List<Label> labels) {

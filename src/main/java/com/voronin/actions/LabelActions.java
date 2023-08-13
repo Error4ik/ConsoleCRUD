@@ -47,7 +47,9 @@ public class LabelActions implements Actions {
                     break;
                 }
                 default: {
-                    System.out.println("---------Неверный пункт меню.---------");
+                    if (menuLabelActions != 0) {
+                        System.out.println("---------Неверный пункт меню.---------");
+                    }
                 }
             }
         } while (menuLabelActions != 0);

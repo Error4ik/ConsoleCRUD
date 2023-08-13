@@ -69,39 +69,31 @@ public class GsonPostRepositoryImpl implements PostRepository {
     @Override
     public Post update(Post post) {
         List<Post> posts = fileUtils.getFromFile();
-        Optional<Post> first = posts.stream()
+        Post first = posts.stream()
                 .filter(p -> Objects.equals(p.getId(), post.getId()))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + post));
 
-        Post p;
-        if (first.isPresent()) {
-            p = first.get();
-            p.setContent(post.getContent());
-            p.setUpdated(LocalDateTime.now());
-            fileUtils.writeToFile(posts);
-            writerRepository.updatePostInWriter(p);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID: " + post);
-        }
-        return p;
+        first.setContent(post.getContent());
+        first.setUpdated(LocalDateTime.now());
+        fileUtils.writeToFile(posts);
+        writerRepository.updatePostInWriter(first);
+
+        return first;
     }
 
     @Override
     public void deleteById(Integer id) {
         List<Post> posts = fileUtils.getFromFile();
-        Optional<Post> first = posts.stream()
+        Post first = posts.stream()
                 .filter(p -> Objects.equals(p.getId(), id))
-                .findFirst();
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Не существующий ID: " + id));
 
-        if (first.isPresent()) {
-            Post p = first.get();
-            p.setStatus(PostStatus.DELETED);
-            p.setUpdated(LocalDateTime.now());
-            fileUtils.writeToFile(posts);
-            writerRepository.updatePostInWriter(p);
-        } else {
-            throw new IllegalArgumentException("Не существующий ID: " + id);
-        }
+        first.setStatus(PostStatus.DELETED);
+        first.setUpdated(LocalDateTime.now());
+        fileUtils.writeToFile(posts);
+        writerRepository.updatePostInWriter(first);
     }
 
     @Override

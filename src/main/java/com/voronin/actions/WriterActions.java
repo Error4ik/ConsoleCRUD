@@ -55,7 +55,9 @@ public class WriterActions implements Actions {
                     break;
                 }
                 default: {
-                    System.out.println("---------Неверный пункт меню.---------");
+                    if (menuWriterActions != 0) {
+                        System.out.println("---------Неверный пункт меню.---------");
+                    }
                 }
             }
         } while (menuWriterActions != 0);
