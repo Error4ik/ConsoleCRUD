@@ -1,0 +1,153 @@
+[
+  {
+    "id": 1,
+    "content": "Программирование на Java",
+    "created": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 55,
+        "second": 27,
+        "nano": 905048500
+      }
+    },
+    "updated": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 55,
+        "second": 27,
+        "nano": 905048500
+      }
+    },
+    "labels": [
+      {
+        "id": 1,
+        "name": "Java",
+        "status": "ACTIVE"
+      }
+    ],
+    "postStatus": "UNDER_REVIEW"
+  },
+  {
+    "id": 2,
+    "content": "Изучаем SQL",
+    "created": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 55,
+        "second": 39,
+        "nano": 975839700
+      }
+    },
+    "updated": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 56,
+        "second": 33,
+        "nano": 689138800
+      }
+    },
+    "labels": [
+      {
+        "id": 3,
+        "name": "SQL",
+        "status": "ACTIVE"
+      }
+    ],
+    "postStatus": "UNDER_REVIEW"
+  },
+  {
+    "id": 3,
+    "content": "Изучаем Spring",
+    "created": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 55,
+        "second": 52,
+        "nano": 705184700
+      }
+    },
+    "updated": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 55,
+        "second": 52,
+        "nano": 705184700
+      }
+    },
+    "labels": [
+      {
+        "id": 2,
+        "name": "Spring",
+        "status": "ACTIVE"
+      },
+      {
+        "id": 1,
+        "name": "Java",
+        "status": "ACTIVE"
+      }
+    ],
+    "postStatus": "UNDER_REVIEW"
+  },
+  {
+    "id": 4,
+    "content": "5555",
+    "created": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 56,
+        "second": 50,
+        "nano": 592728900
+      }
+    },
+    "updated": {
+      "date": {
+        "year": 2023,
+        "month": 8,
+        "day": 13
+      },
+      "time": {
+        "hour": 13,
+        "minute": 56,
+        "second": 59,
+        "nano": 296944900
+      }
+    },
+    "labels": [],
+    "postStatus": "DELETED"
+  }
+]
